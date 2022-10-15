@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin panel</title>
+</head>
+<style>
+    button {
+        background-color: #4CAF50; /* Green */
+        border: none;
+        color: white;
+        padding: 5px 9px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        transition-duration: 0.4s;
+        cursor: pointer;
+    }
+</style>
+<body>
+<form method="get" th:action="@{/news}">
+    <button name="button" type="submit">News</button>
+</form>
+<form method="get" th:action="@{/newsadminpanel}">
+    <button name="button" type="submit">News management</button>
+</form>
+<form method="get" th:action="@{/useradminpanel}">
+    <button name="button" type="submit">User management</button>
+</form>
+<form th:action="@{/logout}" method="post">
+    <button name="button" type="submit">Sign out</button>
+</form>
+</body>
+</html>

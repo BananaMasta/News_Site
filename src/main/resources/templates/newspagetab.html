@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <style>
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        td, th {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #dddddd;
+        }
+
+        button {
+            background-color: #4CAF50;
+            border: none;
+            color: white;
+            padding: 5px 9px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            transition-duration: 0.4s;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+<body>
+
+<form method="post" th:action="@{/searchDate}">
+    <input type="date" name="dateBefore"/>
+    <input type="date" name="dateAfter"/>
+    <input type="submit" name="Date">
+</form>
+<form method="post" th:action="@{/news}">
+    <input type="text" name="title"/>
+    <p><textarea rows="10" cols="45" name="content"></textarea></p>
+    <input type="checkbox" id="politic" th:name="politic" value="Politic">
+    <label for="politic">Politic</label>
+    <input type="checkbox" id="economic" th:name="economic" value="Economic">
+    <label for="economic">Economic</label>
+    <input type="checkbox" id="auto" th:name="auto" value="Auto">
+    <label for="auto">Auto</label>
+    <input type="checkbox" id="it" th:name="it" value="It">
+    <label for="it">It</label>
+    <input type="submit" name="submitNews"/>
+</form>
+
+<div class="collapse navbar-collapse" id="navbarResponsive">
+    <form method="post" th:action="@{/newsTag}">
+        <select name="tagsearch">
+            <option th:each="tagsearch : ${T(news.models.Tags).values()}"
+                    th:value="${tagsearch}" th:text="${tagsearch}"></option>
+        </select>
+        <input type="submit" name="Search"/>
+    </form>
+</div>
+
+<table class="table table-bordered table-hover">
+    <thead>
+    <tr>
+        <th>Title</th>
+        <th>Tag</th>
+        <th>Content</th>
+        <th>Date</th>
+        <th>User</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="news : ${allnews}">
+        <td th:text="${news.title}"/>
+        <td th:text="${news.tag}"/>
+        <td th:text="${news.content}"/>
+        <td th:text="${news.getDate()}"/>
+        <td th:text="${news.user.getUsername()}"/>
+    </tr>
+    </tbody>
+    </thead>
+</table>
+</body>
+<form th:action="@{/logout}" method="post">
+    <button name="button" type="submit">Sign Out</button>
+</form>
+</body>
+</html>

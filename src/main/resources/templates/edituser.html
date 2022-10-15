@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form method="post" th:action="@{/edituser}">
+    <tr th:each="user : ${edituser}">
+        <input type="hidden" name="id" th:value="${user.getId()}">
+        <input type="text" name="name" th:value="${user.getUsername()}">
+        <input type="text" name="password" th:value="${user.getPassword()}">
+        <select name="userrole">
+            <option th:each="userRole : ${T(news.models.Role).values()}"
+                    th:value="${userRole}" th:text="${userRole}"></option>
+        </select>
+    </tr>
+    <input type="submit" name="saveedit">
+</form>
+</body>
+</html>

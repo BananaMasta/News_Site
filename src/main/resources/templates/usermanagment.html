@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<style>
+    table {
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    td, th {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+    }
+
+    tr:nth-child(even) {
+        background-color: #dddddd;
+    }
+
+    button {
+        background-color: #4CAF50; /* Green */
+        border: none;
+        color: white;
+        padding: 5px 9px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        transition-duration: 0.4s;
+        cursor: pointer;
+    }
+</style>
+<body>
+<table>
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>User Password</th>
+        <th>User Role</th>
+        <th>User status</th>
+        <th>User ban button</th>
+        <th>User edit button</th>
+    </tr>
+    <tr th:each="user : ${users}">
+        <td th:text="${user.getUsername()}"/>
+        <td th:text="${user.getPassword()}"/>
+        <td th:text="${user.getRole()}"/>
+        <td th:text="${user.userStatus()}"/>
+        <td>
+            <form action="@{/admin}" th:action="@{/ban/userban/} + ${{user.id}}" method="get">
+                <button name="button" th:id="'table_entry_childs_button_' + ${user.id}" type="submit">
+                    <i>Ban user/Unban user</i>
+                </button>
+            </form>
+        </td>
+        <td>
+            <form th:action="@{edit/edituser/} + ${{user.id}}" method="get">
+                <button th:id="'user_edit' + ${user.id}" type="submit">
+                    <i>Edit User</i>
+                </button>
+            </form>
+        </td>
+        <td>
+            <form action="@{/admin}" th:action="@{/delete/userdelete/} + ${{user.id}}" method="get">
+                <button name="button" th:id="'table_entry_childs_button_' + ${user.id}" type="submit">
+                    <i>Delete user</i>
+                </button>
+            </form>
+        </td>
+    </tr>
+    </thead>
+</table>
+<form th:action="@{/logout}" method="post">
+    <button name="button" type="submit">Sign Out</button>
+</form>
+<button action="action" type="button" onclick="history.go(-1);">Back button</button>
+</body>
+</html>
